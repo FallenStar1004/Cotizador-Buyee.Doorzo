@@ -196,15 +196,26 @@
         <h1>Cotizador Buyee/Doorzo</h1>
         <h2>❄️fallen star❄️☃️</h2>
         
-        <!-- Foto incrustada directamente en código seguro -->
-        <img class="banner-penguin" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 500 400' width='100%' height='100%' style='background-color:%23fff; border-radius:12px;'><g transform='translate(40,40)'><g class='penguin' transform='translate(40,100)'><ellipse cx='110' cy='130' rx='75' ry='105' fill='%23e2e8f0'/><ellipse cx='105' cy='115' rx='50' ry='70' fill='%23fff'/><path d='M70,95 Q55,60 100,50 Q145,60 130,95 Q145,130 100,135 Q55,130 70,95 Z' fill='%23334155'/><ellipse cx='88' cy='85' rx='18' ry='22' fill='%23fff'/><ellipse cx='122' cy='85' rx='18' ry='22' fill='%23fff'/><circle cx='92' cy='88' r='5' fill='%23000'/><circle cx='118' cy='88' r='5' fill='%23000'/><ellipse cx='105' cy='102' rx='12' ry='7' fill='%23fca5a5' opacity='0.5'/><path d='M75,120 Q50,140 30,170 Q45,210 70,170 Z' fill='%23e2e8f0'/><path d='M135,120 Q160,110 185,80 Q195,110 145,160 Z' fill='%23e2e8f0'/><ellipse cx='65' cy='235' rx='18' ry='10' fill='%23334155'/><ellipse cx='135' cy='235' rx='18' ry='10' fill='%23334155'/></g><g class='penguin' transform='translate(155,100)'><ellipse cx='110' cy='130' rx='75' ry='105' fill='%23e2e8f0'/><ellipse cx='105' cy='115' rx='50' ry='70' fill='%23fff'/><path d='M70,95 Q55,60 100,50 Q145,60 130,95 Q145,130 100,135 Q55,130 70,95 Z' fill='%23334155'/><ellipse cx='88' cy='85' rx='18' ry='22' fill='%23fff'/><ellipse cx='122' cy='85' rx='18' ry='22' fill='%23fff'/><circle cx='92' cy='88' r='5' fill='%23000'/><circle cx='118' cy='88' r='5' fill='%23000'/><ellipse cx='105' cy='102' rx='12' ry='7' fill='%23fef08a' opacity='0.5'/><path d='M75,120 Q50,140 30,170 Q45,210 70,170 Z' fill='%23e2e8f0'/><path d='M135,120 Q160,110 185,80 Q195,110 145,160 Z' fill='%23e2e8f0'/><ellipse cx='65' cy='235' rx='18' ry='10' fill='%23334155'/><ellipse cx='135' cy='235' rx='18' ry='10' fill='%23334155'/></g><g class='penguin' transform='translate(260,100)'><ellipse cx='110' cy='130' rx='75' ry='105' fill='%23e2e8f0'/><ellipse cx='105' cy='115' rx='50' ry='70' fill='%23fff'/><path d='M70,95 Q55,60 100,50 Q145,60 130,95 Q145,130 100,135 Q55,130 70,95 Z' fill='%23334155'/><ellipse cx='88' cy='85' rx='18' ry='22' fill='%23fff'/><ellipse cx='122' cy='85' rx='18' ry='22' fill='%23fff'/><circle cx='92' cy='88' r='5' fill='%23000'/><circle cx='118' cy='88' r='5' fill='%23000'/><ellipse cx='105' cy='102' rx='12' ry='7' fill='%23bfdbfe' opacity='0.5'/><path d='M75,120 Q50,140 30,170 Q45,210 70,170 Z' fill='%23e2e8f0'/><path d='M135,120 Q160,110 185,80 Q195,110 145,160 Z' fill='%23e2e8f0'/><ellipse cx='65' cy='235' rx='18' ry='10' fill='%23334155'/><ellipse cx='135' cy='235' rx='18' ry='10' fill='%23334155'/></g><path d='M60,320 Q220,335 440,320' stroke='%23bfdbfe' stroke-width='12' fill='none' stroke-linecap='round'/></g></svg>'" alt="Tres Pingüinitos">
+        <!-- Aquí cambias "pinguinos.jpg" por el nombre de tu foto guardada en la misma carpeta -->
+        <img class="banner-penguin" src="https://ibb.co/zWqSzdcm" alt="Pingüinos" onerror="this.style.display='none'">
 
         <div class="form-group">
             <label for="productValue">Valor del producto (USD):</label>
             <input type="number" id="numberValue" placeholder="0.00" min="0" step="0.01">
         </div>
         <button id="btnCalculate" onclick="calcularPrecio()">Calcular Precio</button>
-            <script>
+        <div id="resultBox" class="result-box">
+            <div class="price-label">Precio Final Exacto:</div>
+            <div id="finalPrice" class="price"></div>
+            <button class="btn-reset" onclick="restablecer()">reestablecer</button>
+        </div>
+    </div>
+    <div class="snow-floor-back"></div>
+    <div class="snow-floor" id="mainSnow"></div>
+    
+    <!-- Aquí están de vuelta tus tres pingüinos saltando sobre la nieve -->
+    <div id="jumpingPenguin" class="action-penguin">🐧🐧🐧</div>
+        <script>
         const CONFIG = {
             VALOR_DOLAR: 1550,
             RECARGO_FIJO: 2015
@@ -236,7 +247,7 @@
             document.getElementById('resultBox').classList.remove('active');
             document.getElementById('btnCalculate').style.display = 'block';
         }
-                        function createSnowflake() {
+                    function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
             const icons = ['❄️', '❅', '❆', '•'];
