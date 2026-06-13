@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Buyee/Doorzo</title>
+    <style>
+        :root {
+            --bg-dark: #0b132b;
+            --bg-card: rgba(28, 37, 65, 0.65);
+            --accent-blue: #48cae4;
+            --text-light: #f8f9fa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #0b132b, #1c2541);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        /* Contenedor Translúcido */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--accent-blue);
+            text-shadow: 0 2px 10px rgba(72, 202, 228, 0.3);
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: normal;
+            margin: 0 0 2rem 0;
+            color: #a5a5a5;
+        }
+
+        /* Formulario */
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #e0e1dd;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(11, 19, 43, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            outline: none;
+            color: white;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        /* Botones */
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--accent-blue);
+            color: #0b132b;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            background-color: #90e0ef;
+            box-shadow: 0 0 15px rgba(72, 202, 228, 0.5);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-reset {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.4rem 1rem;
+            width: auto;
+            margin-top: 1.5rem;
+            display: inline-block;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-reset:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            box-shadow: none;
+        }
+
+        /* Sección de Resultado Exacto */
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: rgba(11, 19, 43, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--accent-blue);
+            display: none;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: #a5a5a5;
+            margin-bottom: 0.3rem;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        /* Caída de Copos de Nieve */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #ffffff;
+            user-select: none;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Suelo con Acumulación de Nieve */
+        .snow-floor {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 15px rgba(255, 255, 255, 0.3);
+            z-index: 2;
+            animation: snowAccumulate 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes snowAccumulate {
+            0% { height: 15px; }
+            100% { height: 35px; }
+        }
+
+        /* Pingüino Saltarín Inferior */
+        .action-penguin {
+            position: fixed;
+            bottom: 20px;
+            left: 45%;
+            font-size: 2.2rem;
+            z-index: 5;
+            user-select: none;
+            pointer-events: none;
+            animation: penguinJump 3s ease-in-out infinite;
+        }
+
+        @keyframes penguinJump {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            40% { transform: translateY(0) scaleY(0.9); }
+            50% { transform: translateY(-60px) scaleY(1.05); }
+            60% { transform: translateY(0) scaleY(0.95); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cuadro del Cotizador -->
+    <div class="card">
+        <h1>Cotizador Buyee/Doorzo</h1>
+        <h2>❄️fallen star❄️☃️</h2>
+        
+        <div class="form-group">
+            <label for="productValue">Valor del producto (USD):</label>
+            <input type="number" id="productValue" placeholder="0.00" min="0" step="0.01">
+        </div>
+
+        <button id="btnCalculate" onclick="calcularPrecio()">Calcular Precio</button>
+
+        <div id="resultBox" class="result-box">
+            <div class="price-label">Precio Final Exacto:</div>
+            <div id="finalPrice" class="price"></div>
+            <button class="btn-reset" onclick="restablecer()">reestablecer</button>
+        </div>
+    </div>
+
+    <!-- Piso Acumulador y Pingüino Animado -->
+    <div class="snow-floor"></div>
+    <div class="action-penguin">🐧</div>
+
+    <script>
+        // Configuración interna oculta
+        const CONFIG = {
+            VALOR_DOLAR: 1550,
+            RECARGO_FIJO: 2015
+        };
+
+        function calcularPrecio() {
+            const inputVal = document.getElementById('productValue').value;
+            
+            if (inputVal === '' || inputVal < 0) {
+                alert('Por favor, ingresa un valor válido.');
+                return;
+            }
+
+            const productValue = parseFloat(inputVal);
+            
+            // Cálculo exacto original
+            let finalPrice = (productValue * CONFIG.VALOR_DOLAR) + CONFIG.RECARGO_FIJO;
+            
+            // Redondeo obligatorio hacia arriba si contiene centavos
+            finalPrice = Math.ceil(finalPrice);
+
+            // Formateo limpio del número exacto
+            const formattedPrice = new Intl.NumberFormat('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+                minimumFractionDigits: 0
+            }).format(finalPrice);
+
+            document.getElementById('finalPrice').innerText = formattedPrice;
+            document.getElementById('resultBox').classList.add('active');
+            document.getElementById('btnCalculate').style.display = 'none';
+        }
+
+        function restablecer() {
+            document.getElementById('productValue').value = '';
+            document.getElementById('resultBox').classList.remove('active');
+            document.getElementById('btnCalculate').style.display = 'block';
+        }
+
+        // Generador de copos para el ambiente invernal
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            const icons = ['❄️', '❅', '❆', '•'];
+            snowflake.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 4 + 's';
+            snowflake.style.fontSize = Math.random() * 12 + 8 + 'px';
+            
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 7000);
+        }
+
+        setInterval(createSnowflake, 120);
+    </script>
+</body>
+</html>
