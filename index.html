@@ -11,7 +11,6 @@
             --accent-blue: #48cae4;
             --text-light: #f8f9fa;
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -25,13 +24,11 @@
             position: relative;
             color: var(--text-light);
         }
-
-        /* Contenedor Translúcido */
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             text-align: center;
@@ -40,27 +37,30 @@
             z-index: 10;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         h1 {
             font-size: 1.8rem;
             margin: 0 0 0.5rem 0;
             color: var(--accent-blue);
             text-shadow: 0 2px 10px rgba(72, 202, 228, 0.3);
         }
-
         h2 {
             font-size: 1.1rem;
             font-weight: normal;
-            margin: 0 0 2rem 0;
+            margin: 0 0 1rem 0;
             color: #a5a5a5;
         }
-
-        /* Formulario */
+        .banner-penguin {
+            width: 160px;
+            height: auto;
+            margin: 0.5rem auto 1.5rem auto;
+            display: block;
+            border-radius: 12px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
         .form-group {
             margin-bottom: 1.5rem;
             text-align: left;
         }
-
         label {
             display: block;
             margin-bottom: 0.5rem;
@@ -68,7 +68,6 @@
             font-size: 0.95rem;
             color: #e0e1dd;
         }
-
         input {
             width: 100%;
             padding: 0.8rem;
@@ -81,12 +80,7 @@
             color: white;
             transition: border-color 0.3s;
         }
-
-        input:focus {
-            border-color: var(--accent-blue);
-        }
-
-        /* Botones */
+        input:focus { border-color: var(--accent-blue); }
         button {
             width: 100%;
             padding: 0.8rem;
@@ -99,16 +93,11 @@
             cursor: pointer;
             transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
         }
-
         button:hover {
             background-color: #90e0ef;
             box-shadow: 0 0 15px rgba(72, 202, 228, 0.5);
         }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
+        button:active { transform: scale(0.98); }
         .btn-reset {
             background-color: rgba(255, 255, 255, 0.15);
             color: white;
@@ -120,13 +109,7 @@
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .btn-reset:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            box-shadow: none;
-        }
-
-        /* Sección de Resultado Exacto */
+        .btn-reset:hover { background-color: rgba(255, 255, 255, 0.25); }
         .result-box {
             margin-top: 1.5rem;
             padding: 1.2rem;
@@ -135,24 +118,9 @@
             border: 1px solid var(--accent-blue);
             display: none;
         }
-
-        .result-box.active {
-            display: block;
-        }
-
-        .price-label {
-            font-size: 0.9rem;
-            color: #a5a5a5;
-            margin-bottom: 0.3rem;
-        }
-
-        .price {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--accent-blue);
-        }
-
-        /* Caída de Copos de Nieve */
+        .result-box.active { display: block; }
+        .price-label { font-size: 0.9rem; color: #a5a5a5; margin-bottom: 0.3rem; }
+        .price { font-size: 1.8rem; font-weight: bold; color: var(--accent-blue); }
         .snowflake {
             position: absolute;
             top: -10px;
@@ -162,102 +130,101 @@
             pointer-events: none;
             animation: fall linear infinite;
         }
-
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.7; }
             90% { opacity: 0.7; }
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
-
-        /* Suelo con Acumulación de Nieve */
         .snow-floor {
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: 20px;
-            background: #ffffff;
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 -5px 15px rgba(255, 255, 255, 0.3);
+            width: 110%;
+            height: 40px;
+            background: radial-gradient(circle at top, #ffffff 60%, #e0f2fe 100%);
+            border-radius: 50% 40% 0 0 / 20px 15px 0 0;
+            box-shadow: 0 -8px 25px rgba(255, 255, 255, 0.4), inset 0 4px 10px rgba(255, 255, 255, 0.8);
             z-index: 2;
-            animation: snowAccumulate 15s ease-in-out infinite alternate;
+            transform: translateX(-5%);
+            animation: snowAccumulate 12s ease-in-out infinite alternate;
         }
-
+        .snow-floor-back {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 120%;
+            height: 50px;
+            background: radial-gradient(circle at top, #f1f5f9 40%, #cbd5e1 100%);
+            border-radius: 40% 60% 0 0 / 25px 20px 0 0;
+            opacity: 0.6;
+            z-index: 1;
+            transform: translateX(-10%);
+            animation: snowAccumulateBack 16s ease-in-out infinite alternate;
+        }
         @keyframes snowAccumulate {
-            0% { height: 15px; }
-            100% { height: 35px; }
+            0% { height: 35px; transform: translateX(-5%) rotate(0deg); }
+            100% { height: 55px; transform: translateX(-2%) rotate(0.5deg); }
         }
-
-        /* Pingüino Saltarín Inferior */
+        @keyframes snowAccumulateBack {
+            0% { height: 45px; transform: translateX(-10%) rotate(0deg); }
+            100% { height: 65px; transform: translateX(-5%) rotate(-0.5deg); }
+        }
         .action-penguin {
             position: fixed;
-            bottom: 20px;
-            left: 45%;
-            font-size: 2.2rem;
+            bottom: 35px;
+            left: calc(50% - 24px);
+            font-size: 3.5rem;
             z-index: 5;
             user-select: none;
             pointer-events: none;
             animation: penguinJump 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+            transition: bottom 0.5s ease-in-out;
         }
-
         @keyframes penguinJump {
             0%, 100% { transform: translateY(0) scaleY(1); }
             40% { transform: translateY(0) scaleY(0.9); }
-            50% { transform: translateY(-60px) scaleY(1.05); }
+            50% { transform: translateY(-90px) scaleY(1.05); } 
             60% { transform: translateY(0) scaleY(0.95); }
         }
     </style>
 </head>
 <body>
-
-    <!-- Cuadro del Cotizador -->
     <div class="card">
         <h1>Cotizador Buyee/Doorzo</h1>
         <h2>❄️fallen star❄️☃️</h2>
-        
+        <img class="banner-penguin" src="https://ibb.co" alt="Penguins Group" onerror="this.src='https://unsplash.com'">
         <div class="form-group">
             <label for="productValue">Valor del producto (USD):</label>
-            <input type="number" id="productValue" placeholder="0.00" min="0" step="0.01">
+            <input type="number" id="numberValue" placeholder="0.00" min="0" step="0.01">
         </div>
-
         <button id="btnCalculate" onclick="calcularPrecio()">Calcular Precio</button>
-
         <div id="resultBox" class="result-box">
             <div class="price-label">Precio Final Exacto:</div>
             <div id="finalPrice" class="price"></div>
             <button class="btn-reset" onclick="restablecer()">reestablecer</button>
         </div>
     </div>
-
-    <!-- Piso Acumulador y Pingüino Animado -->
-    <div class="snow-floor"></div>
-    <div class="action-penguin">🐧</div>
-
-    <script>
-        // Configuración interna oculta
+    <div class="snow-floor-back"></div>
+    <div class="snow-floor" id="mainSnow"></div>
+    <div id="jumpingPenguin" class="action-penguin">🐧</div>
+        <script>
         const CONFIG = {
             VALOR_DOLAR: 1550,
             RECARGO_FIJO: 2015
         };
 
         function calcularPrecio() {
-            const inputVal = document.getElementById('productValue').value;
-            
+            const inputVal = document.getElementById('numberValue').value;
             if (inputVal === '' || inputVal < 0) {
                 alert('Por favor, ingresa un valor válido.');
                 return;
             }
-
             const productValue = parseFloat(inputVal);
-            
-            // Cálculo exacto original
             let finalPrice = (productValue * CONFIG.VALOR_DOLAR) + CONFIG.RECARGO_FIJO;
-            
-            // Redondeo obligatorio hacia arriba si contiene centavos
             finalPrice = Math.ceil(finalPrice);
 
-            // Formateo limpio del número exacto
             const formattedPrice = new Intl.NumberFormat('es-AR', {
                 style: 'currency',
                 currency: 'ARS',
@@ -270,31 +237,37 @@
         }
 
         function restablecer() {
-            document.getElementById('productValue').value = '';
+            document.getElementById('numberValue').value = '';
             document.getElementById('resultBox').classList.remove('active');
             document.getElementById('btnCalculate').style.display = 'block';
         }
 
-        // Generador de copos para el ambiente invernal
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
-            
             const icons = ['❄️', '❅', '❆', '•'];
             snowflake.innerText = icons[Math.floor(Math.random() * icons.length)];
-            
             snowflake.style.left = Math.random() * 100 + 'vw';
             snowflake.style.animationDuration = Math.random() * 3 + 4 + 's';
             snowflake.style.fontSize = Math.random() * 12 + 8 + 'px';
-            
             document.body.appendChild(snowflake);
-
-            setTimeout(() => {
-                snowflake.remove();
-            }, 7000);
+            setTimeout(() => { snowflake.remove(); }, 7000);
         }
 
         setInterval(createSnowflake, 120);
+
+        const penguinElement = document.getElementById('jumpingPenguin');
+        const mainSnow = document.getElementById('mainSnow');
+        const penguinEmojis = ['🐧', '🐧✨', '🐧❄️'];
+        
+        setInterval(() => {
+            const randomEmoji = penguinEmojis[Math.floor(Math.random() * penguinEmojis.length)];
+            penguinElement.innerText = randomEmoji;
+            const currentSnowHeight = mainSnow.offsetHeight;
+            if (currentSnowHeight > 0) {
+                penguinElement.style.bottom = (currentSnowHeight - 15) + 'px';
+            }
+        }, 3000);
     </script>
 </body>
 </html>
